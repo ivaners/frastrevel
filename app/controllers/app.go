@@ -11,7 +11,5 @@ type App struct {
 func (c App) Index() revel.Result {
 	c.RenderArgs["test"] = "Hello world!"
 
-	revel.WARN.Print(note.GetNoteAll())
-
 	return c.Render()
 }
