@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/revel/revel"
+	"html/template"
 	"myapp/app/controllers"
 	"myapp/app/db"
 	"myapp/app/models"
@@ -22,6 +23,14 @@ func init() {
 		revel.InterceptorFilter,       // Run interceptors around the action.
 		revel.CompressFilter,          // Compress the result.
 		revel.ActionInvoker,           // Invoke the action.
+	}
+
+	revel.TemplateFuncs["rawMsg"] = func(renderArgs map[string]interface{}, message string, args ...interface{}) template.JS {
+		str, ok := renderArgs[revel.CurrentLocaleRenderArg].(string)
+		if !ok {
+			return ""
+		}
+		return template.JS(revel.Message(str, message, args...))
 	}
 
 	revel.OnAppStart(func() {
