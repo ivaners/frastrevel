@@ -15,6 +15,7 @@ var Session *mgo.Session
 // 各个表的Collection对象
 
 var Notes *mgo.Collection
+var Sessions *mgo.Collection
 
 // 初始化时连接数据库
 func Init(url, dbname string) {
