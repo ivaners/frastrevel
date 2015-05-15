@@ -16,6 +16,7 @@ var Session *mgo.Session
 
 var Notes *mgo.Collection
 var Sessions *mgo.Collection
+var Users *mgo.Collection
 
 // 初始化时连接数据库
 func Init(url, dbname string) {
@@ -53,6 +54,8 @@ func Init(url, dbname string) {
 
 	// notes
 	Notes = Session.DB(dbname).C("notes")
+	Sessions = Session.DB(dbname).C("sessions")
+	Users = Session.DB(dbname).C("users")
 }
 
 func close() {

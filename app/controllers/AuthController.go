@@ -41,5 +41,5 @@ func (c Auth) DoLogin(email, pwd string, captcha string) revel.Result {
 		}
 	}
 
-	return c.RenderJson(table.Re{Ok: false, Item: sessionService.LoginTimesIsOver(sessionId), Msg: c.Message(msg)})
+	return c.RenderJson(table.Re{Ok: false, Item: session.LoginTimesIsOver(sessionId), Msg: c.Message(msg)})
 }

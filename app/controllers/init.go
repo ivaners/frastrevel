@@ -7,9 +7,11 @@ import (
 var note *models.Note
 var session *models.Session
 var auth *models.Auth
+var user *models.User
 
 func Init() {
 	note = models.NoteS
-	session = models.Session
-	auth = models.Auth
+	session = models.SessionS
+	auth = models.AuthS
+	user = models.Users
 }

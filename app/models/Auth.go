@@ -2,10 +2,10 @@ package models
 
 import (
 	"fmt"
-	// . "github.com/leanote/leanote/app/lea"
 	"gopkg.in/mgo.v2/bson"
+	. "myapp/app/lea"
 	"myapp/app/table"
-	"strconv"
+	// "strconv"
 	"strings"
 )
 
@@ -15,10 +15,10 @@ type Auth struct {
 }
 
 // pwd已md5了
-func (this *Auth) Login(emailOrUsername, pwd string) info.User {
+func (this *Auth) Login(emailOrUsername, pwd string) table.User {
 	emailOrUsername = strings.Trim(emailOrUsername, " ")
 	//	pwd = strings.Trim(pwd, " ")
-	userInfo := userService.LoginGetUserInfo(emailOrUsername, Md5(pwd))
+	userInfo := Users.LoginGetUserInfo(emailOrUsername, Md5(pwd))
 	return userInfo
 }
 
@@ -35,10 +35,10 @@ func (this *Auth) Login(emailOrUsername, pwd string) info.User {
 // [ok]
 func (this *Auth) Register(email, pwd, fromUserId string) (bool, string) {
 	// 用户是否已存在
-	if userService.IsExistsUser(email) {
+	if Users.IsExistsUser(email) {
 		return false, "userHasBeenRegistered-" + email
 	}
-	user := info.User{UserId: bson.NewObjectId(), Email: email, Username: email, Pwd: Md5(pwd)}
+	user := table.User{UserId: bson.NewObjectId(), Email: email, Username: email, Pwd: Md5(pwd)}
 	if fromUserId != "" && IsObjectId(fromUserId) {
 		user.FromUserId = bson.ObjectIdHex(fromUserId)
 	}
@@ -46,8 +46,8 @@ func (this *Auth) Register(email, pwd, fromUserId string) (bool, string) {
 	return this.register(user)
 }
 
-func (this *Auth) register(user info.User) (bool, string) {
-	if userService.AddUser(user) {
+func (this *Auth) register(user table.User) (bool, string) {
+	if Users.AddUser(user) {
 	}
 
 	return true, ""
@@ -61,22 +61,22 @@ func (this *Auth) getUsername(thirdType, thirdUsername string) (username string)
 	username = thirdType + "-" + thirdUsername
 	i := 1
 	for {
-		if !userService.IsExistsUserByUsername(username) {
+		if !Users.IsExistsUserByUsername(username) {
 			return
 		}
 		username = fmt.Sprintf("%v%v", username, i)
 	}
 }
 
-func (this *Auth) ThirdRegister(thirdType, thirdUserId, thirdUsername string) (exists bool, userInfo info.User) {
-	userInfo = userService.GetUserInfoByThirdUserId(thirdUserId)
+func (this *Auth) ThirdRegister(thirdType, thirdUserId, thirdUsername string) (exists bool, userInfo table.User) {
+	userInfo = Users.GetUserInfoByThirdUserId(thirdUserId)
 	if userInfo.UserId != "" {
 		exists = true
 		return
 	}
 
 	username := this.getUsername(thirdType, thirdUsername)
-	userInfo = info.User{UserId: bson.NewObjectId(),
+	userInfo = table.User{UserId: bson.NewObjectId(),
 		Username:      username,
 		ThirdUserId:   thirdUserId,
 		ThirdUsername: thirdUsername,

@@ -122,7 +122,7 @@ $(function() {
 			$("#loginBtn").html("{{msg . "login"}}").removeClass("disabled");
 			if(e.Ok) {
 				$("#loginBtn").html("{{msg . "loginSuccess"}}...");
-				var from = $("#from").val() || "{{.noteUrl}}" || "/note";
+				var from = $("#from").val() || "{{.noteUrl}}" || "/";
 				location.href = from;
 			} else {
 				if(e.Item && $.trim($("#captchaContainer").text()) == "") {

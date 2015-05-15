@@ -6,6 +6,7 @@ module:testrunner
 
 GET     /                                       App.Index
 GET     /login                                     	Auth.Login
+POST     /doLogin                                   Auth.DoLogin
 
 
 # Map static resources from the /app/public folder to the /public path
