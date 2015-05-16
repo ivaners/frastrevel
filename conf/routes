@@ -5,6 +5,7 @@
 module:testrunner
 
 GET     /                                       App.Index
+GET     /index   	                                App.Index
 GET     /login                                     	Auth.Login
 POST     /doLogin                                   Auth.DoLogin
 

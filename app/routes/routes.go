@@ -68,6 +68,18 @@ func (_ tTestRunner) List(
 }
 
 
+type tApp struct {}
+var App tApp
+
+
+func (_ tApp) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Index", args).Url
+}
+
+
 type tAuth struct {}
 var Auth tAuth
 
@@ -83,16 +95,17 @@ func (_ tAuth) Login(
 	return revel.MainRouter.Reverse("Auth.Login", args).Url
 }
 
-
-type tApp struct {}
-var App tApp
-
-
-func (_ tApp) Index(
+func (_ tAuth) DoLogin(
+		email string,
+		pwd string,
+		captcha string,
 		) string {
 	args := make(map[string]string)
 	
-	return revel.MainRouter.Reverse("App.Index", args).Url
+	revel.Unbind(args, "email", email)
+	revel.Unbind(args, "pwd", pwd)
+	revel.Unbind(args, "captcha", captcha)
+	return revel.MainRouter.Reverse("Auth.DoLogin", args).Url
 }
 
 
