@@ -26,9 +26,9 @@ baseInfoSet=基本设置
 commentSet=评论设置
 themeSet=主题设置
 theme=主题
-blogName=博客标题
+blogName=标题
 blogLogo=博客Logo
-blogDesc=博客描述
+blogDesc=描述
 aboutMe=关于我
 
 #domain

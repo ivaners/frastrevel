@@ -16,7 +16,7 @@ var user *models.User
 // 不需要拦截的url
 // Index 除了Note之外都不需要
 var commonUrl = map[string]map[string]bool{
-	"App": map[string]bool{},
+// "App": map[string]bool{"Index": true},
 }
 
 func needValidate(controller, method string) bool {
@@ -38,12 +38,10 @@ func AuthInterceptor(c *revel.Controller) revel.Result {
 	var controller = strings.Title(c.Name)
 	var method = strings.Title(c.MethodName)
 
-	revel.WARN.Print(needValidate(controller, method))
 	// 是否需要验证?
 	if !needValidate(controller, method) {
 		return nil
 	}
-
 	// 验证是否已登录
 	if userId, ok := c.Session["UserId"]; ok && userId != "" {
 		return nil // 已登录

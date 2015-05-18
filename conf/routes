@@ -8,6 +8,7 @@ GET     /                                       App.Index
 GET     /index   	                                App.Index
 GET     /login                                     	Auth.Login
 POST     /doLogin                                   Auth.DoLogin
+GET  	/note									Note.Index
 
 
 # Map static resources from the /app/public folder to the /public path

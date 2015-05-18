@@ -4,10 +4,11 @@ import (
 	"github.com/revel/revel"
 )
 
-type App struct {
+type Note struct {
 	BaseController
 }
 
-func (c App) Index() revel.Result {
+func (c Note) Index() revel.Result {
+
 	return c.Render()
 }

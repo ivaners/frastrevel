@@ -9,35 +9,6 @@ var BaseController tBaseController
 
 
 
-type tStatic struct {}
-var Static tStatic
-
-
-func (_ tStatic) Serve(
-		prefix string,
-		filepath string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "prefix", prefix)
-	revel.Unbind(args, "filepath", filepath)
-	return revel.MainRouter.Reverse("Static.Serve", args).Url
-}
-
-func (_ tStatic) ServeModule(
-		moduleName string,
-		prefix string,
-		filepath string,
-		) string {
-	args := make(map[string]string)
-	
-	revel.Unbind(args, "moduleName", moduleName)
-	revel.Unbind(args, "prefix", prefix)
-	revel.Unbind(args, "filepath", filepath)
-	return revel.MainRouter.Reverse("Static.ServeModule", args).Url
-}
-
-
 type tTestRunner struct {}
 var TestRunner tTestRunner
 
@@ -68,15 +39,32 @@ func (_ tTestRunner) List(
 }
 
 
-type tApp struct {}
-var App tApp
+type tStatic struct {}
+var Static tStatic
 
 
-func (_ tApp) Index(
+func (_ tStatic) Serve(
+		prefix string,
+		filepath string,
 		) string {
 	args := make(map[string]string)
 	
-	return revel.MainRouter.Reverse("App.Index", args).Url
+	revel.Unbind(args, "prefix", prefix)
+	revel.Unbind(args, "filepath", filepath)
+	return revel.MainRouter.Reverse("Static.Serve", args).Url
+}
+
+func (_ tStatic) ServeModule(
+		moduleName string,
+		prefix string,
+		filepath string,
+		) string {
+	args := make(map[string]string)
+	
+	revel.Unbind(args, "moduleName", moduleName)
+	revel.Unbind(args, "prefix", prefix)
+	revel.Unbind(args, "filepath", filepath)
+	return revel.MainRouter.Reverse("Static.ServeModule", args).Url
 }
 
 
@@ -106,6 +94,30 @@ func (_ tAuth) DoLogin(
 	revel.Unbind(args, "pwd", pwd)
 	revel.Unbind(args, "captcha", captcha)
 	return revel.MainRouter.Reverse("Auth.DoLogin", args).Url
+}
+
+
+type tNote struct {}
+var Note tNote
+
+
+func (_ tNote) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("Note.Index", args).Url
+}
+
+
+type tApp struct {}
+var App tApp
+
+
+func (_ tApp) Index(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.Index", args).Url
 }
 
 
